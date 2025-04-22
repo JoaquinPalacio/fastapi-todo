@@ -1,7 +1,5 @@
-// URL al servidor local
-const API_URL = 'http://localhost:8000/todos/';
 // URL al servidor
-// const API_URL = 'https://todo-backend-g8fyw7qcl-joaquinpalacios-projects-95416ffb.vercel.app/todos/';
+const API_URL = import.meta.env.VITE_API_URL;
 
 export async function fetchTodos() {
   const response = await fetch(API_URL);

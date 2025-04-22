@@ -1,0 +1,37 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Backend/Dockerfile
+    container_name: FastApi-ToDo-Backend
+    ports:
+      - "8001:8000"
+    environment:
+      - DATABASE_URL=mongodb://mongo:27017
+    depends_on:
+      - mongo
+    env_file:
+    - ./Backend/.env
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Frontend/Dockerfile
+    container_name: FastApi-ToDo-Frontend
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+    env_file:
+    - ./Frontend/.env
+
+  mongo:
+    image: mongo:7
+    container_name: FastApi-ToDo-db
+    ports:
+      - "27018:27017"
+    volumes:
+      - mongo_data:/data/db
+
+volumes:
+  mongo_data:
